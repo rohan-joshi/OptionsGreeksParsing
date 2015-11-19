@@ -54,9 +54,13 @@ def main():
 	range_count = obj['results']['symbolcount']
 
 	#print all contracts with an vega > 0
-	for x in range(0,range_count):
-		if quotes[x]['greeks']['vega'] > 0:
-			print quotes[x]['key']['symbol']
+	for quote in quotes:
+		if 'greeks' not in quote:
+			print('Quote does not contain `greeks`:', quote)
+		elif 'impvol' not in quote['greeks']:
+			print('Quote does not contain `impvol`:', quote)
+		elif quote['greeks']['impvol'] > 0:
+			print quote['key']['symbol']
 
 if __name__ == '__main__':
 	main()
